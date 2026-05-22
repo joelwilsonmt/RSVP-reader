@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+
+# Runtime data (survives rebuilds via Docker volume — do not commit)
+data/progress.db
+data/text_cache/
+data/config.json
+
+# macOS
+.DS_Store
+
+# Editor
+.idea/
+.vscode/
+*.swp

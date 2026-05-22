@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSVP Reader</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- VIEW: HOME -->
+  <div id="view-home" class="view active">
+    <header class="home-header">
+      <span class="app-title">RSVP Reader</span>
+      <div id="folder-display" class="folder-display" title="Click to change books folder">
+        <span class="folder-icon">📂</span>
+        <span id="folder-path" class="folder-path"></span>
+        <span class="folder-edit-hint">✎</span>
+      </div>
+      <button id="btn-choose-file" class="ctrl-btn ctrl-btn--sm btn-choose-file" title="Open a specific file">
+        <span class="btn-label-full">Open File</span>
+        <span class="btn-label-short" aria-hidden="true">📄</span>
+      </button>
+      <button id="theme-toggle-home" class="icon-btn" title="Toggle theme" aria-label="Toggle theme">◑</button>
+    </header>
+
+    <section id="continue-section" class="home-section" style="display:none">
+      <h2 class="section-heading">Continue Reading</h2>
+      <div id="continue-list" class="continue-list"></div>
+    </section>
+
+    <section class="home-section">
+      <h2 class="section-heading">Browse</h2>
+      <nav id="breadcrumb" class="breadcrumb" aria-label="Path breadcrumb"></nav>
+      <div id="file-list" class="file-list"></div>
+    </section>
+  </div>
+
+  <!-- VIEW: LOADING -->
+  <div id="view-loading" class="view">
+    <div class="loading-center">
+      <div class="spinner"></div>
+      <p id="loading-msg">Extracting text…</p>
+      <p class="loading-sub">Large books can take 10–15 s</p>
+    </div>
+  </div>
+
+  <!-- VIEW: PLAYER -->
+  <div id="view-player" class="view">
+    <header class="player-header">
+      <button id="btn-back" class="icon-btn" title="Back to library" aria-label="Back">←</button>
+      <span id="player-title" class="player-title"></span>
+      <span id="player-counter" class="player-counter"></span>
+      <button id="theme-toggle-player" class="icon-btn" title="Toggle theme" aria-label="Toggle theme">◑</button>
+    </header>
+
+    <div class="player-body">
+      <div class="player-stage">
+        <div id="word-display" class="word-display" aria-live="assertive" aria-atomic="true">
+          <div class="orp-row">
+            <span id="orp-left"  class="orp-left"></span>
+            <span id="orp-char"  class="orp-char"></span>
+            <span id="orp-right" class="orp-right"></span>
+          </div>
+        </div>
+      </div>
+
+      <div id="context-panel" class="context-panel" aria-label="Book context"></div>
+    </div>
+
+    <div class="progress-bar-wrap">
+      <input id="progress-slider" type="range" min="0" value="0" class="progress-slider" aria-label="Book position">
+    </div>
+
+    <div class="controls">
+      <div class="controls-row controls-row--nav">
+        <button id="btn-skip-back-50"  class="ctrl-btn" title="Back 50 words">«</button>
+        <button id="btn-skip-back-10"  class="ctrl-btn" title="Back 10 words">‹</button>
+        <button id="btn-play"          class="ctrl-btn ctrl-btn--play" title="Play / Pause [Space]">▶</button>
+        <button id="btn-skip-fwd-10"   class="ctrl-btn" title="Forward 10 words">›</button>
+        <button id="btn-skip-fwd-50"   class="ctrl-btn" title="Forward 50 words">»</button>
+      </div>
+      <div class="controls-row controls-row--settings">
+        <button id="btn-restart" class="ctrl-btn ctrl-btn--sm" title="Restart from beginning">↺</button>
+        <label class="wpm-label">
+          <span>WPM</span>
+          <input id="wpm-input" type="number" min="100" max="1000" value="350" class="wpm-input">
+        </label>
+        <input id="wpm-slider" type="range" min="100" max="1000" step="10" value="350" class="wpm-slider" aria-label="Words per minute">
+      </div>
+    </div>
+  </div>
+
+  <!-- FILE/FOLDER PICKER MODAL -->
+  <div id="picker-overlay" class="picker-overlay" style="display:none" role="dialog" aria-modal="true" aria-label="File picker">
+    <div class="picker-modal">
+      <div class="picker-header">
+        <span id="picker-title" class="picker-modal-title">Choose Folder</span>
+        <button id="picker-close" class="icon-btn" aria-label="Close">✕</button>
+      </div>
+      <div class="picker-path-bar">
+        <span id="picker-cwd" class="picker-cwd"></span>
+      </div>
+      <div id="picker-list" class="picker-list"></div>
+      <div class="picker-footer">
+        <span id="picker-selection" class="picker-selection"></span>
+        <div class="picker-actions">
+          <button id="picker-cancel" class="ctrl-btn ctrl-btn--sm">Cancel</button>
+          <button id="picker-select" class="ctrl-btn ctrl-btn--sm ctrl-btn--accent" disabled>Select</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

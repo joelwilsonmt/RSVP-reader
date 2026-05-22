@@ -1,0 +1,13 @@
+services:
+  rsvp:
+    build: .
+    ports:
+      - "5002:5002"
+    volumes:
+      - /mnt:/books:ro      # change /mnt to your books root path
+      - ./data:/app/data
+    environment:
+      - TZ=America/Denver
+      - BOOKS_DIR=/books
+      - DATA_DIR=/app/data
+    restart: unless-stopped
