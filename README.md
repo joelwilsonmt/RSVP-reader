@@ -1,48 +1,99 @@
 # RSVP Reader
 
-A self-hosted, browser-based RSVP (Rapid Serial Visual Presentation) reading app. One word at a time, at configurable speed. Tracks your progress per book across devices.
+A self-hosted, browser-based speed reader. Opens EPUB, PDF, TXT, and Markdown files and flashes one word at a time using **Rapid Serial Visual Presentation (RSVP)** — the same technique used by apps like Spritz and Spreeder.
 
-## What it does
+Runs as a single Docker container. No accounts, no cloud, no telemetry. Access it from any device on your [Tailscale](https://tailscale.com) network.
 
-- Browses a folder of books (EPUB, PDF, TXT, Markdown)
-- Flashes one word at a time with Optimal Recognition Point (ORP) alignment
-- Saves your reading position server-side — resume on any device
-- "Continue Reading" dashboard with progress bars
-- Dark/light theme, 100–1000 WPM, keyboard shortcuts
+---
 
-## Running
+## Features
+
+- **RSVP playback** — 100–1000 WPM, configurable
+- **Optimal Recognition Point (ORP)** alignment — the key character of each word is fixed to a horizontal pivot, reducing eye movement
+- **Smart pacing** — longer delays after punctuation and paragraph breaks
+- **Context panel** — pausing slides in a scrollable view of surrounding text; click any word to jump there
+- **Cross-device progress** — position is saved server-side; resume on your phone where you left off on desktop
+- **Continue Reading** dashboard with progress bars
+- **Folder & file picker** — browse your server's filesystem from the UI
+- **Dark / light theme**
+- Supports `.epub`, `.pdf`, `.txt`, `.md`
+
+---
+
+## Quick Deploy
 
 ### Prerequisites
-- Docker with the Compose plugin (`docker compose version`)
 
-### Start
+- A Linux server (home server, VPS, Raspberry Pi, etc.)
+- [Docker](https://docs.docker.com/engine/install/) with the Compose plugin
+- [Tailscale](https://tailscale.com) installed on the server and your devices (optional but recommended)
+
+### 1. Create the project folder
 
 ```bash
-docker compose up --build -d
+mkdir ~/rsvp-reader && cd ~/rsvp-reader
 ```
 
-Then open `http://<your-server-ip>:5002` in a browser.
+### 2. Create `docker-compose.yml`
 
-### Stop / restart
+```yaml
+services:
+  rsvp:
+    image: ghcr.io/joelwilsonmt/rsvp-reader:latest
+    ports:
+      - "5002:5002"
+    volumes:
+      - /mnt:/books:ro      # ← change to your books folder
+      - ./data:/app/data
+    environment:
+      - TZ=America/Denver   # ← change to your timezone
+      - BOOKS_DIR=/books
+      - DATA_DIR=/app/data
+    restart: unless-stopped
+```
+
+Or clone this repo and edit the included `docker-compose.yml`:
 
 ```bash
-docker compose down
+git clone https://github.com/joelwilsonmt/RSVP-reader.git ~/rsvp-reader
+cd ~/rsvp-reader
+# edit docker-compose.yml: set your books path and timezone
+```
+
+### 3. Start the container
+
+```bash
 docker compose up -d
 ```
 
-### Update (after pulling new code)
+Docker pulls the pre-built image from GitHub Container Registry — no build step needed.
 
-```bash
-docker compose up --build -d
+### 4. Open in a browser
+
+```
+http://localhost:5002
 ```
 
-The `--build` flag rebuilds the image with any code changes. Your data is in `./data/` and is unaffected.
+Or from any device on your Tailscale network:
 
-## Adding books
+```
+http://<server-tailscale-ip>:5002
+http://<server-hostname>:5002   # if MagicDNS is enabled
+```
 
-Drop files into your books folder (configured as the volume mount in `docker-compose.yml`). The browse view reads the directory live — no scan or import step needed. Supported formats: `.epub`, `.pdf`, `.txt`, `.md`.
+Run `tailscale ip -4` on the server to find its Tailscale IP.
 
-## Keyboard shortcuts (player view)
+---
+
+## Adding Books
+
+Drop files into the folder you mounted as `/books`. The browse view reads the directory live — no import or scan step needed. Subfolders are supported.
+
+You can also change the books root at any time from the UI: click the **📂 folder pill** in the top-left of the home screen to open a filesystem browser.
+
+---
+
+## Keyboard Shortcuts
 
 | Key | Action |
 |-----|--------|
@@ -50,38 +101,52 @@ Drop files into your books folder (configured as the volume mount in `docker-com
 | `←` / `→` | Back / Forward 10 words |
 | `Shift+←` / `Shift+→` | Back / Forward 50 words |
 
-## Backing up your progress
+---
 
-Progress is stored in `./data/progress.db` (SQLite). To back it up:
+## Updating
 
 ```bash
+docker compose pull
+docker compose up -d
+```
+
+This pulls the latest image and restarts the container. Your `data/` folder (progress database, text cache) is unaffected.
+
+---
+
+## Backup
+
+All persistent state lives in `./data/progress.db` (SQLite). The text cache in `./data/text_cache/` is derived from your books and can be safely deleted — it will be regenerated on next open.
+
+```bash
+# local backup
 cp ./data/progress.db ./data/progress.db.bak
+
+# copy off-server
+scp yourserver:~/rsvp-reader/data/progress.db .
 ```
 
-Or copy it off the server:
+---
+
+## Building Locally
+
+If you want to modify the code:
 
 ```bash
-scp yourserver:/path/to/rsvp-reader/data/progress.db .
+git clone https://github.com/joelwilsonmt/RSVP-reader.git
+cd RSVP-reader
+# edit docker-compose.yml: replace `image:` line with `build: .`
+docker compose up --build -d
 ```
 
-Text extraction caches are in `./data/text_cache/`. They are safe to delete — they will be regenerated on next open. Only `progress.db` contains data you can't recover.
+Every push to `main` automatically builds a new image via GitHub Actions and pushes it to `ghcr.io/joelwilsonmt/rsvp-reader:latest` (both `linux/amd64` and `linux/arm64`).
 
-## Tailscale access
+---
 
-1. Find your server's Tailscale IP: `tailscale ip -4`
-2. Open `http://<tailscale-ip>:5002` from any device on your tailnet.
-3. If MagicDNS is enabled, you can also use `http://<hostname>:5002` where `<hostname>` is the machine name shown in the Tailscale admin panel.
+## Stack
 
-No authentication is needed — Tailscale handles access control. Do not expose port 5002 to the public internet.
-
-## Configuration
-
-Environment variables (set in `docker-compose.yml`):
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `BOOKS_DIR` | `/books` | Path inside container where books are mounted |
-| `DATA_DIR` | `/app/data` | Path inside container for SQLite DB and text cache |
-| `PORT` | `5002` | Port Flask listens on |
-| `TZ` | `America/Denver` | Timezone for timestamps |
-# RSVP-reader
+- **Python 3.12** / **Flask** — backend
+- **ebooklib** + **BeautifulSoup4** — EPUB extraction
+- **pypdf** — PDF extraction
+- **SQLite** — reading progress
+- Vanilla HTML + CSS + JS frontend — no build step, no npm

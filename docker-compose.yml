@@ -1,6 +1,7 @@
 services:
   rsvp:
-    build: .
+    image: ghcr.io/joelwilsonmt/rsvp-reader:latest
+    # build: .   # uncomment to build locally instead of pulling from ghcr
     ports:
       - "5002:5002"
     volumes:
