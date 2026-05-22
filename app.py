@@ -41,7 +41,7 @@ def set_books_dir(new_path: str) -> Path:
         _config_path().write_text(json.dumps({"books_dir": str(p)}))
     return p
 
-SUPPORTED_EXTS = {".epub", ".pdf", ".txt", ".md"}
+SUPPORTED_EXTS = {".epub", ".pdf", ".txt", ".md", ".mobi", ".azw", ".azw3"}
 
 
 # ── database ──────────────────────────────────────────────────────────────────
@@ -89,6 +89,8 @@ def extract_text(path: Path) -> str:
         return _extract_epub(path)
     elif ext == ".pdf":
         return _extract_pdf(path)
+    elif ext in (".mobi", ".azw", ".azw3"):
+        return _extract_mobi(path)
     else:
         return path.read_text(encoding="utf-8", errors="ignore")
 
@@ -106,6 +108,22 @@ def _extract_epub(path: Path) -> str:
             tag.decompose()
         parts.append(soup.get_text(separator=" "))
     return "\n\n".join(parts)
+
+
+def _extract_mobi(path: Path) -> str:
+    import mobi
+    import shutil
+    from bs4 import BeautifulSoup
+
+    tempdir, filepath = mobi.extract(str(path))
+    try:
+        html = Path(filepath).read_bytes()
+        soup = BeautifulSoup(html, "html.parser")
+        for tag in soup(["script", "style", "nav", "header", "footer"]):
+            tag.decompose()
+        return soup.get_text(separator=" ")
+    finally:
+        shutil.rmtree(tempdir, ignore_errors=True)
 
 
 def _extract_pdf(path: Path) -> str:

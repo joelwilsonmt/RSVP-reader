@@ -299,6 +299,9 @@ async function openFile(relpath, title) {
 // ── browse ────────────────────────────────────────────────────────────────────
 const EXT_ICON = {
   ".epub": "📖",
+  ".mobi": "📖",
+  ".azw":  "📖",
+  ".azw3": "📖",
   ".pdf":  "📄",
   ".txt":  "📝",
   ".md":   "📝",

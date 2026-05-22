@@ -16,7 +16,7 @@ Runs as a single Docker container. No accounts, no cloud, no telemetry. Access i
 - **Continue Reading** dashboard with progress bars
 - **Folder & file picker** — browse your server's filesystem from the UI
 - **Dark / light theme**
-- Supports `.epub`, `.pdf`, `.txt`, `.md`
+- Supports `.epub`, `.mobi`, `.azw`, `.azw3`, `.pdf`, `.txt`, `.md`
 
 ---
 
@@ -88,6 +88,8 @@ Run `tailscale ip -4` on the server to find its Tailscale IP.
 ## Adding Books
 
 Drop files into the folder you mounted as `/books`. The browse view reads the directory live — no import or scan step needed. Subfolders are supported.
+
+Supported formats: `.epub`, `.mobi`, `.azw`, `.azw3`, `.pdf`, `.txt`, `.md`
 
 You can also change the books root at any time from the UI: click the **📂 folder pill** in the top-left of the home screen to open a filesystem browser.
 
