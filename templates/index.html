@@ -12,6 +12,7 @@
   <script>
     // Apply theme before first paint to avoid a flash.
     try { const t = localStorage.getItem("rsvp-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}
+    try { const s = +localStorage.getItem("rsvp-word-size"); if (s >= 0.6 && s <= 1.2) document.documentElement.style.setProperty("--word-size", s); } catch {}
   </script>
 </head>
 <body>
@@ -143,7 +144,7 @@
     <p id="wpm-preview" class="wpm-preview"></p>
     <div class="wpm-row">
       <button id="wpm-down" class="icon-btn icon-btn--ring" type="button" aria-label="Slower by 25"><svg class="icon"><use href="#i-minus"/></svg></button>
-      <input id="wpm-slider" class="range" type="range" min="100" max="1200" step="5" value="350" aria-label="Words per minute">
+      <input id="wpm-slider" class="range" type="range" min="100" max="800" step="5" value="350" aria-label="Words per minute">
       <button id="wpm-up" class="icon-btn icon-btn--ring" type="button" aria-label="Faster by 25"><svg class="icon"><use href="#i-plus"/></svg></button>
     </div>
     <div class="sheet-actions"><button class="btn btn--solid" type="button" data-close>Done</button></div>
@@ -171,6 +172,11 @@
         <button type="button" role="radio" data-theme-choice="dark">Dark</button>
         <button type="button" role="radio" data-theme-choice="light">Light</button>
       </div>
+    </div>
+    <div class="setting setting--range">
+      <label for="set-size"><span class="setting-label">Word size</span><span class="setting-help">Smaller means long words rarely need shrinking</span></label>
+      <output id="set-size-value" class="setting-value" for="set-size">100%</output>
+      <input id="set-size" class="range" type="range" min="60" max="120" step="5" value="100" aria-describedby="set-size-value">
     </div>
     <label class="setting">
       <span><span class="setting-label">Fixation guides</span><span class="setting-help">Marks above and below the focus letter</span></span>

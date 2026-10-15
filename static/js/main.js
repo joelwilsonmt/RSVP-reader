@@ -1,8 +1,8 @@
 // App shell: routing, global keys, settings sheet.
 
-import { $ } from "./util.js";
+import { $, setRangeFill } from "./util.js";
 import { initSheets, openSheet, closeSheet, anySheetOpen } from "./ui.js";
-import { settings, loadSettings, saveSettings, getTheme, applyTheme } from "./settings.js";
+import { settings, loadSettings, saveSettings, getTheme, applyTheme, getWordSize, applyWordSize } from "./settings.js";
 import { renderFeed, renderFiles, feedKey, initLibrary } from "./library.js";
 import { renderStats } from "./stats.js";
 import * as reader from "./reader.js";
@@ -80,10 +80,28 @@ function syncSettingsUi() {
     b.setAttribute("aria-checked", String(b.dataset.themeChoice === t)));
   $("set-guides").checked = !!settings.pivot_guides;
   $("set-ramp").checked = !!settings.ramp;
+  syncWordSizeUi(getWordSize());
   $("wakelock-note").hidden = "wakeLock" in navigator && window.isSecureContext;
 }
 
+function syncWordSizeUi(size) {
+  const pct = Math.round(size * 100);
+  $("set-size").value = pct;
+  $("set-size-value").textContent = `${pct}%`;
+  setRangeFill($("set-size"));
+}
+
+// Keep the word visible above the settings sheet so the size slider previews live.
+function liftWord(open) {
+  const view = $("view-reader");
+  const sheet = $("sheet-settings");
+  const on = open && route === "reader" && !matchMedia("(min-width: 960px)").matches;
+  view.classList.toggle("sheet-lift", on);
+  if (on) view.style.setProperty("--sheet-h", `${sheet.offsetHeight}px`);  // its height, not its (animating) position
+}
+
 function initSettingsSheet() {
+  $("set-size").addEventListener("input", (e) => syncWordSizeUi(applyWordSize(+e.target.value / 100)));
   document.querySelectorAll("[data-theme-choice]").forEach((b) =>
     b.addEventListener("click", () => { applyTheme(b.dataset.themeChoice); syncSettingsUi(); }));
   $("set-guides").addEventListener("change", (e) => {
@@ -92,7 +110,7 @@ function initSettingsSheet() {
   $("set-ramp").addEventListener("change", (e) => {
     settings.ramp = e.target.checked; saveSettings({ ramp: settings.ramp });
   });
-  $("sheet-settings").addEventListener("toggle", syncSettingsUi);
+  $("sheet-settings").addEventListener("toggle", (e) => { syncSettingsUi(); liftWord(e.target.open); });
   $("btn-shortcuts").addEventListener("click", () => { closeSheet("sheet-settings"); openSheet("sheet-shortcuts"); });
 }
 

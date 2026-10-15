@@ -220,7 +220,7 @@ function seekChapter(dir) {
 }
 
 export function setWpm(v) {
-  const wpm = Math.max(100, Math.min(1200, Math.round(v / 5) * 5));
+  const wpm = Math.max(100, Math.min(800, Math.round(v / 5) * 5));
   if (wpm === settings.wpm) return;
   settings.wpm = wpm;
   saveSettings({ wpm });

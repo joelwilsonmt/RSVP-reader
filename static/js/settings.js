@@ -22,6 +22,24 @@ export function saveSettings(patch) {
   push();
 }
 
+// ── word size (per device: the right size depends on the screen) ────────────
+
+export const WORD_SIZE = { min: 0.6, max: 1.2 };
+
+export function getWordSize() {
+  try {
+    const s = +localStorage.getItem("rsvp-word-size");
+    return s >= WORD_SIZE.min && s <= WORD_SIZE.max ? s : 1;
+  } catch { return 1; }
+}
+
+export function applyWordSize(s) {
+  s = Math.max(WORD_SIZE.min, Math.min(WORD_SIZE.max, Math.round(s * 20) / 20));
+  document.documentElement.style.setProperty("--word-size", s);
+  try { s === 1 ? localStorage.removeItem("rsvp-word-size") : localStorage.setItem("rsvp-word-size", String(s)); } catch {}
+  return s;
+}
+
 // ── theme ───────────────────────────────────────────────────────────────────
 
 export function getTheme() {

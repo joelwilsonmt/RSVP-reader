@@ -23,7 +23,7 @@ Runs as a single Docker container. No accounts, no cloud, no telemetry. Built ph
 
 ## Features
 
-- **RSVP playback**: 100 to 1200 WPM, with the focus letter (ORP) pinned to a fixed point and fixation guides above and below it
+- **RSVP playback**: 100 to 800 WPM, with the focus letter (ORP) pinned to a fixed point and fixation guides above and below it. Words too long for the screen shrink to fit rather than getting cut off, and a per-device **word size** setting scales every word down (or up)
 - **Smart pacing**: longer pauses at sentence ends, clauses, paragraph breaks, long words and numbers; optional ease-in on resume (backs up a few words and ramps up to speed)
 - **Time left, always**: percentage, time remaining at your current speed, and the clock time you'll finish
 - **Chapters**: from the EPUB table of contents, PDF outline or Markdown headings, with per-chapter durations, scrubber ticks and `[` / `]` to jump. A jump lands on the chapter heading (not an illustration caption above it), and resuming never rewinds into the previous chapter

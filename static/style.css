@@ -389,8 +389,9 @@ body[data-route="now"] .tab[aria-current="page"] { color: var(--on-media); }
   display: flex; align-items: baseline;
   width: min(92vw, 820px);
   font-family: var(--f-word);
-  font-size: calc(clamp(2.4rem, 10.5vw, 4.75rem) * var(--fit, 1));  /* --fit: long words, see reader.js */
-  line-height: calc(clamp(2.4rem, 10.5vw, 4.75rem) * 1.15);  /* fixed, so a shrunk word keeps its line */
+  /* --word-size: the reader's setting; --fit: per-word shrink for long words (reader.js) */
+  font-size: calc(clamp(2.4rem, 10.5vw, 4.75rem) * var(--word-size, 1) * var(--fit, 1));
+  line-height: calc(clamp(2.4rem, 10.5vw, 4.75rem) * var(--word-size, 1) * 1.15);  /* not --fit: a shrunk word keeps its line */
   white-space: pre;
   color: var(--text);
 }
@@ -502,6 +503,7 @@ body[data-route="now"] .tab[aria-current="page"] { color: var(--on-media); }
 /* phone: lift the word into the space above the open text sheet */
 @media (max-width: 959px) {
   .reader.ctx-open .stage, .reader.ctx-open .guides { padding-bottom: 56dvh; }
+  .reader.sheet-lift .stage, .reader.sheet-lift .guides { padding-bottom: var(--sheet-h, 56dvh); }
   .reader.ctx-open .reader-foot { visibility: hidden; }
 }
 
@@ -578,6 +580,9 @@ body[data-route="now"] .tab[aria-current="page"] { color: var(--on-media); }
 .setting { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 0; border-top: 1px solid var(--line); }
 .setting:first-of-type { border-top: 0; }
 .setting--stack { flex-wrap: wrap; justify-content: flex-start; gap: 8px; }
+.setting--range { flex-wrap: wrap; row-gap: 0; }
+.setting--range .range { flex: 1 0 100%; }
+.setting-value { font-weight: 600; font-variant-numeric: tabular-nums; color: var(--text-2); }
 .setting-label { display: block; font-weight: 600; }
 .setting-help { display: block; font-size: .8125rem; color: var(--text-3); }
 p.setting-help { margin-top: 12px; }

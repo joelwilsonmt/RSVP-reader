@@ -28,7 +28,7 @@ Self-hosted, single container, reads the files you already have (EPUB, MOBI/AZW/
 
 - Backend: Python 3.12 / Flask, SQLite for progress and stats, JSON text cache.
 - Frontend: vanilla HTML/CSS/JS, no build step, no npm. Must stay light and fast on a phone; this is a hard constraint.
-- RSVP with ORP pivot alignment, punctuation-aware pacing, pause-to-context panel with click-to-seek, chapters, WPM 100-1200.
+- RSVP with ORP pivot alignment, punctuation-aware pacing, pause-to-context panel with click-to-seek, chapters, WPM 100-800, adjustable word size.
 - No auth by design; security relies on the network (Tailscale). Filesystem access is confined to a configured root.
 
 ## Evidence on Hand

@@ -34,7 +34,7 @@ COVER_EXTS = (".jpg", ".jpeg", ".png", ".gif", ".webp")  # ordered: find_cover s
 BOOK_ID_RE = re.compile(r"^[0-9a-f]{32}$")
 
 DEFAULT_SETTINGS = {"wpm": 350, "pivot_guides": True, "ramp": True}
-WPM_MIN, WPM_MAX = 100, 1200
+WPM_MIN, WPM_MAX = 100, 800
 MAX_SECONDS_PER_SAVE = 600
 
 _db_lock = threading.Lock()
@@ -99,7 +99,12 @@ def set_books_dir(new_path: str) -> Path:
 
 def get_settings() -> dict:
     stored = read_config().get("settings") or {}
-    return {**DEFAULT_SETTINGS, **{k: v for k, v in stored.items() if k in DEFAULT_SETTINGS}}
+    merged = {**DEFAULT_SETTINGS, **{k: v for k, v in stored.items() if k in DEFAULT_SETTINGS}}
+    try:  # a speed saved under an older, wider range is pulled back inside it
+        merged["wpm"] = max(WPM_MIN, min(WPM_MAX, int(merged["wpm"])))
+    except (TypeError, ValueError):
+        merged["wpm"] = DEFAULT_SETTINGS["wpm"]
+    return merged
 
 
 def update_settings(partial: dict) -> dict:

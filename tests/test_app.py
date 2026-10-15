@@ -324,9 +324,9 @@ def test_config_and_settings(env):
     assert c.post("/api/config", json={"books_dir": str(new)}).get_json() == {"books_dir": str(new)}
 
     assert c.get("/api/settings").get_json() == {"wpm": 350, "pivot_guides": True, "ramp": True}
-    assert c.post("/api/settings", json={"wpm": 5000}).get_json()["wpm"] == 1200
+    assert c.post("/api/settings", json={"wpm": 5000}).get_json()["wpm"] == 800
     s = c.post("/api/settings", json={"ramp": False}).get_json()
-    assert s == {"wpm": 1200, "pivot_guides": True, "ramp": False}
+    assert s == {"wpm": 800, "pivot_guides": True, "ramp": False}
     assert c.post("/api/settings", json={"ramp": "no"}).status_code == 400
     # Settings and books_dir coexist in config.json
     cfg = json.loads((env["data"] / "config.json").read_text())
@@ -381,19 +381,19 @@ def test_stats_count_played_words_not_position_jumps(env):
     post(3000, 30, 100)            # +100 played words, +30s
     post(3200, 9999, 200)          # seconds clamped to 600
     post(6000)                     # chapter jump / scrub: position only
-    post(6100, 1, 5000)            # words capped by seconds at WPM_MAX (1s -> 20)
+    post(6100, 1, 5000)            # words capped by seconds at WPM_MAX (1s -> 14)
     post(6100, -5, 50)             # negative seconds -> 0 -> no words either
     s = c.get("/api/stats").get_json()
-    assert s["today"] == {"words": 320, "seconds": 631}
-    assert s["week"] == {"words": 320, "seconds": 631}
+    assert s["today"] == {"words": 314, "seconds": 631}
+    assert s["week"] == {"words": 314, "seconds": 631}
     assert s["streak_days"] == 1
-    assert len(s["days"]) == 14 and s["days"][-1]["words"] == 320
+    assert len(s["days"]) == 14 and s["days"][-1]["words"] == 314
     assert s["days"][0]["words"] == 0
 
     # Remove then undo (re-post of the old position) adds nothing
     c.delete("/api/progress", query_string={"id": bid})
     post(6100)
-    assert c.get("/api/stats").get_json()["today"]["words"] == 320
+    assert c.get("/api/stats").get_json()["today"]["words"] == 314
 
 
 def test_streak_counts_from_yesterday(env):
@@ -555,3 +555,11 @@ def test_legacy_rows_retry_when_file_appears(env, epub_file):
     mod2.app.test_client().delete("/api/progress", query_string={"id": lst[0]["book_id"]})
     mod3 = importlib.reload(mod2)
     assert mod3.app.test_client().get("/api/progress").get_json() == []
+
+
+def test_wpm_saved_under_old_range_is_clamped(env):
+    mod = env["mod"]
+    mod.write_config({"settings": {"wpm": 1100}})
+    assert env["client"].get("/api/settings").get_json()["wpm"] == 800
+    mod.write_config({"settings": {"wpm": "fast"}})
+    assert env["client"].get("/api/settings").get_json()["wpm"] == 350
