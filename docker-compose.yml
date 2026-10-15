@@ -11,4 +11,5 @@ services:
       - TZ=America/Denver
       - BOOKS_DIR=/books
       - DATA_DIR=/app/data
+      - FS_ROOT=/books      # file picker and all path APIs are confined to this dir
     restart: unless-stopped

@@ -1,116 +1,225 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="color-scheme" content="dark light">
   <title>RSVP Reader</title>
+  <link rel="preload" href="/static/fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/static/fonts/antonio-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/static/style.css">
+  <script>
+    // Apply theme before first paint to avoid a flash.
+    try { const t = localStorage.getItem("rsvp-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch {}
+  </script>
 </head>
 <body>
-  <!-- VIEW: HOME -->
-  <div id="view-home" class="view active">
-    <header class="home-header">
-      <span class="app-title">RSVP Reader</span>
-      <div id="folder-display" class="folder-display" title="Click to change books folder">
-        <span class="folder-icon">📂</span>
-        <span id="folder-path" class="folder-path"></span>
-        <span class="folder-edit-hint">✎</span>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15a.5.5 0 0 0 .76.43l12.2-7.5a.5.5 0 0 0 0-.86L7.76 4.07A.5.5 0 0 0 7 4.5Z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="4.5" width="4" height="15" rx="1"/><rect x="14" y="4.5" width="4" height="15" rx="1"/></symbol>
+    <symbol id="i-chapters" viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></symbol>
+    <symbol id="i-text" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h10M4 18h13"/></symbol>
+    <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M12 14l4-5"/><path d="M3.5 17a9 9 0 1 1 17 0"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3.5 7.5a2 2 0 0 1 2-2h3.6l2 2.2h7.4a2 2 0 0 1 2 2v7.8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2Z"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3.5H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5Z"/><path d="M14 3.5v5h5"/></symbol>
+    <symbol id="i-now" viewBox="0 0 24 24"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M10 9.5v5l4-2.5Z"/></symbol>
+    <symbol id="i-files" viewBox="0 0 24 24"><path d="M4 5.5h5l2 2h9v11H4Z"/><path d="M4 10.5h16"/></symbol>
+    <symbol id="i-stats" viewBox="0 0 24 24"><path d="M5 20V12M10 20V6M15 20v-9M20 20V4"/></symbol>
+    <symbol id="i-restart" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-open" viewBox="0 0 24 24"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5"/><path d="M4.5 17v2.5h15V17"/></symbol>
+    <symbol id="i-keyboard" viewBox="0 0 24 24"><rect x="3" y="6.5" width="18" height="11" rx="2"/><path d="M7 10h.01M11 10h.01M15 10h.01M8 14h8"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M6 12h12"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></symbol>
+  </svg>
+
+  <!-- ── NOW: feed of books in progress ── -->
+  <main id="view-now" class="view" data-view="now" aria-label="Reading now">
+    <header class="topbar topbar--overlay">
+      <span class="wordmark">RSVP Reader</span>
+      <span id="feed-count" class="feed-count" aria-live="polite"></span>
+    </header>
+    <div id="feed" class="feed" tabindex="-1"></div>
+  </main>
+
+  <!-- ── FILES ── -->
+  <main id="view-files" class="view view--page" data-view="files" aria-label="Files">
+    <header class="page-head">
+      <h1 class="page-title">Files</h1>
+      <div class="page-actions">
+        <button id="btn-open-elsewhere" class="btn btn--quiet" type="button">
+          <svg class="icon"><use href="#i-open"/></svg><span>Open file…</span>
+        </button>
+        <button id="btn-change-root" class="btn btn--quiet" type="button">
+          <svg class="icon"><use href="#i-folder"/></svg><span>Set folder…</span>
+        </button>
       </div>
-      <button id="btn-choose-file" class="ctrl-btn ctrl-btn--sm btn-choose-file" title="Open a specific file">
-        <span class="btn-label-full">Open File</span>
-        <span class="btn-label-short" aria-hidden="true">📄</span>
-      </button>
-      <button id="theme-toggle-home" class="icon-btn" title="Toggle theme" aria-label="Toggle theme">◑</button>
     </header>
+    <nav id="crumbs" class="crumbs" aria-label="Folder path"></nav>
+    <ul id="file-list" class="file-list" role="list"></ul>
+  </main>
 
-    <section id="continue-section" class="home-section" style="display:none">
-      <h2 class="section-heading">Continue Reading</h2>
-      <div id="continue-list" class="continue-list"></div>
-    </section>
-
-    <section class="home-section">
-      <h2 class="section-heading">Browse</h2>
-      <nav id="breadcrumb" class="breadcrumb" aria-label="Path breadcrumb"></nav>
-      <div id="file-list" class="file-list"></div>
-    </section>
-  </div>
-
-  <!-- VIEW: LOADING -->
-  <div id="view-loading" class="view">
-    <div class="loading-center">
-      <div class="spinner"></div>
-      <p id="loading-msg">Extracting text…</p>
-      <p class="loading-sub">Large books can take 10–15 s</p>
-    </div>
-  </div>
-
-  <!-- VIEW: PLAYER -->
-  <div id="view-player" class="view">
-    <header class="player-header">
-      <button id="btn-back" class="icon-btn" title="Back to library" aria-label="Back">←</button>
-      <span id="player-title" class="player-title"></span>
-      <span id="player-counter" class="player-counter"></span>
-      <button id="theme-toggle-player" class="icon-btn" title="Toggle theme" aria-label="Toggle theme">◑</button>
+  <!-- ── STATS ── -->
+  <main id="view-stats" class="view view--page" data-view="stats" aria-label="Stats">
+    <header class="page-head">
+      <h1 class="page-title">Pace</h1>
     </header>
+    <div id="stats-body" class="stats"></div>
+  </main>
 
-    <div class="player-body">
-      <div class="player-stage">
-        <div id="word-display" class="word-display" aria-live="assertive" aria-atomic="true">
-          <div class="orp-row">
-            <span id="orp-left"  class="orp-left"></span>
-            <span id="orp-char"  class="orp-char"></span>
-            <span id="orp-right" class="orp-right"></span>
-          </div>
+  <!-- ── bottom nav (now / files / stats) ── -->
+  <nav id="tabbar" class="tabbar" aria-label="Sections">
+    <a href="#/now" class="tab" data-tab="now"><svg class="icon"><use href="#i-now"/></svg><span>Now</span></a>
+    <a href="#/files" class="tab" data-tab="files"><svg class="icon"><use href="#i-files"/></svg><span>Files</span></a>
+    <a href="#/stats" class="tab" data-tab="stats"><svg class="icon"><use href="#i-stats"/></svg><span>Pace</span></a>
+  </nav>
+
+  <!-- ── READER ── -->
+  <section id="view-reader" class="view reader" data-view="reader" aria-label="Reader">
+    <div class="reader-main">
+      <div id="stage" class="stage" aria-label="Word display. Tap to play or pause.">
+        <div class="guides" aria-hidden="true"><span class="guide guide--top"></span><span class="guide guide--bottom"></span></div>
+        <div id="word" class="word" aria-live="off">
+          <span id="w-left" class="w-left"></span><span id="w-pivot" class="w-pivot"></span><span id="w-right" class="w-right"></span>
+        </div>
+        <p id="stage-status" class="stage-status" hidden></p>
+      </div>
+
+      <header class="reader-top chrome">
+        <button id="btn-reader-back" class="icon-btn" type="button" aria-label="Back to library"><svg class="icon"><use href="#i-back"/></svg></button>
+        <span id="reader-chapter" class="reader-chapter"></span>
+        <span aria-hidden="true"></span>
+      </header>
+
+      <div class="reader-foot chrome">
+        <div class="reader-caption-wrap">
+          <p id="reader-title" class="reader-title"></p>
+          <p id="reader-meta" class="reader-meta"></p>
+          <button id="reader-sentence" class="reader-sentence" type="button" aria-label="Show surrounding text"></button>
+        </div>
+        <div class="rail" role="toolbar" aria-label="Reader controls">
+          <button id="rail-wpm" class="rail-btn" type="button" aria-label="Words per minute">
+            <svg class="icon"><use href="#i-gauge"/></svg><span id="rail-wpm-count" class="rail-count">350</span>
+          </button>
+          <button id="rail-chapters" class="rail-btn" type="button" aria-label="Chapters">
+            <svg class="icon"><use href="#i-chapters"/></svg><span id="rail-ch-count" class="rail-count"></span>
+          </button>
+          <button id="rail-text" class="rail-btn" type="button" aria-label="Surrounding text" aria-pressed="false">
+            <svg class="icon"><use href="#i-text"/></svg><span class="rail-count">Text</span>
+          </button>
+          <button id="btn-reader-settings" class="rail-btn" type="button" aria-label="Reader settings">
+            <svg class="icon"><use href="#i-settings"/></svg><span class="rail-count">Settings</span>
+          </button>
+          <button id="rail-play" class="rail-btn rail-btn--primary" type="button" aria-label="Play">
+            <svg class="icon icon--fill"><use id="rail-play-icon" href="#i-play"/></svg>
+          </button>
         </div>
       </div>
 
-      <div id="context-panel" class="context-panel" aria-label="Book context"></div>
-    </div>
-
-    <div class="progress-bar-wrap">
-      <input id="progress-slider" type="range" min="0" value="0" class="progress-slider" aria-label="Book position">
-    </div>
-
-    <div class="controls">
-      <div class="controls-row controls-row--nav">
-        <button id="btn-skip-back-50"  class="ctrl-btn" title="Back 50 words">«</button>
-        <button id="btn-skip-back-10"  class="ctrl-btn" title="Back 10 words">‹</button>
-        <button id="btn-play"          class="ctrl-btn ctrl-btn--play" title="Play / Pause [Space]">▶</button>
-        <button id="btn-skip-fwd-10"   class="ctrl-btn" title="Forward 10 words">›</button>
-        <button id="btn-skip-fwd-50"   class="ctrl-btn" title="Forward 50 words">»</button>
-      </div>
-      <div class="controls-row controls-row--settings">
-        <button id="btn-restart" class="ctrl-btn ctrl-btn--sm" title="Restart from beginning">↺</button>
-        <label class="wpm-label">
-          <span>WPM</span>
-          <input id="wpm-input" type="number" min="100" max="1000" value="350" class="wpm-input">
-        </label>
-        <input id="wpm-slider" type="range" min="100" max="1000" step="10" value="350" class="wpm-slider" aria-label="Words per minute">
+      <div class="scrub chrome-keep">
+        <div id="scrub-ticks" class="scrub-ticks" aria-hidden="true"></div>
+        <input id="scrub" class="scrub-input" type="range" min="0" max="0" value="0" step="1" aria-label="Position in book">
       </div>
     </div>
-  </div>
 
-  <!-- FILE/FOLDER PICKER MODAL -->
-  <div id="picker-overlay" class="picker-overlay" style="display:none" role="dialog" aria-modal="true" aria-label="File picker">
-    <div class="picker-modal">
-      <div class="picker-header">
-        <span id="picker-title" class="picker-modal-title">Choose Folder</span>
-        <button id="picker-close" class="icon-btn" aria-label="Close">✕</button>
+    <aside id="context" class="context" aria-label="Surrounding text" hidden>
+      <div class="context-head">
+        <span class="context-label">Tap a word to jump there</span>
+        <button id="btn-context-close" class="icon-btn" type="button" aria-label="Close text"><svg class="icon"><use href="#i-x"/></svg></button>
       </div>
-      <div class="picker-path-bar">
-        <span id="picker-cwd" class="picker-cwd"></span>
-      </div>
-      <div id="picker-list" class="picker-list"></div>
-      <div class="picker-footer">
-        <span id="picker-selection" class="picker-selection"></span>
-        <div class="picker-actions">
-          <button id="picker-cancel" class="ctrl-btn ctrl-btn--sm">Cancel</button>
-          <button id="picker-select" class="ctrl-btn ctrl-btn--sm ctrl-btn--accent" disabled>Select</button>
-        </div>
+      <div id="context-body" class="context-body"></div>
+    </aside>
+  </section>
+
+  <!-- ── sheets ── -->
+  <dialog id="sheet-wpm" class="sheet" aria-labelledby="sheet-wpm-title">
+    <div class="sheet-grip" aria-hidden="true"></div>
+    <h2 id="sheet-wpm-title" class="sheet-title">Speed</h2>
+    <div class="wpm-readout"><output id="wpm-value" class="wpm-value">350</output><span class="wpm-unit">words / min</span></div>
+    <p id="wpm-preview" class="wpm-preview"></p>
+    <div class="wpm-row">
+      <button id="wpm-down" class="icon-btn icon-btn--ring" type="button" aria-label="Slower by 25"><svg class="icon"><use href="#i-minus"/></svg></button>
+      <input id="wpm-slider" class="range" type="range" min="100" max="1200" step="5" value="350" aria-label="Words per minute">
+      <button id="wpm-up" class="icon-btn icon-btn--ring" type="button" aria-label="Faster by 25"><svg class="icon"><use href="#i-plus"/></svg></button>
+    </div>
+    <div class="sheet-actions"><button class="btn btn--solid" type="button" data-close>Done</button></div>
+  </dialog>
+
+  <dialog id="sheet-chapters" class="sheet sheet--tall" aria-labelledby="sheet-ch-title">
+    <div class="sheet-grip" aria-hidden="true"></div>
+    <div class="sheet-headrow">
+      <h2 id="sheet-ch-title" class="sheet-title">Chapters</h2>
+      <button class="icon-btn" type="button" data-close aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button>
+    </div>
+    <ol id="chapter-list" class="chapter-list"></ol>
+  </dialog>
+
+  <dialog id="sheet-settings" class="sheet" aria-labelledby="sheet-set-title">
+    <div class="sheet-grip" aria-hidden="true"></div>
+    <div class="sheet-headrow">
+      <h2 id="sheet-set-title" class="sheet-title">Reading</h2>
+      <button class="icon-btn" type="button" data-close aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="setting">
+      <span class="setting-label" id="lbl-theme">Theme</span>
+      <div class="segmented" role="radiogroup" aria-labelledby="lbl-theme">
+        <button type="button" role="radio" data-theme-choice="auto">Auto</button>
+        <button type="button" role="radio" data-theme-choice="dark">Dark</button>
+        <button type="button" role="radio" data-theme-choice="light">Light</button>
       </div>
     </div>
-  </div>
+    <label class="setting">
+      <span><span class="setting-label">Fixation guides</span><span class="setting-help">Marks above and below the focus letter</span></span>
+      <input id="set-guides" type="checkbox" class="switch">
+    </label>
+    <label class="setting">
+      <span><span class="setting-label">Ease in on resume</span><span class="setting-help">Back up a few words and ramp up to speed</span></span>
+      <input id="set-ramp" type="checkbox" class="switch">
+    </label>
+    <div class="setting setting--stack">
+      <button id="btn-restart" class="btn btn--quiet" type="button"><svg class="icon"><use href="#i-restart"/></svg><span>Start book over</span></button>
+      <button id="btn-shortcuts" class="btn btn--quiet only-fine" type="button"><svg class="icon"><use href="#i-keyboard"/></svg><span>Keyboard shortcuts</span></button>
+    </div>
+    <p id="wakelock-note" class="setting-help" hidden>Screen may sleep while reading: keeping it awake needs HTTPS (try <code>tailscale serve</code>).</p>
+  </dialog>
 
-  <script src="/static/app.js"></script>
+  <dialog id="sheet-shortcuts" class="sheet" aria-labelledby="sheet-keys-title">
+    <div class="sheet-headrow">
+      <h2 id="sheet-keys-title" class="sheet-title">Shortcuts</h2>
+      <button class="icon-btn" type="button" data-close aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button>
+    </div>
+    <dl class="keys">
+      <dt><kbd>Space</kbd></dt><dd>Play / pause</dd>
+      <dt><kbd>←</kbd> <kbd>→</kbd></dt><dd>Back / forward 10 words</dd>
+      <dt><kbd>Shift</kbd> <kbd>←</kbd> <kbd>→</kbd></dt><dd>Previous / next sentence</dd>
+      <dt><kbd>[</kbd> <kbd>]</kbd></dt><dd>Previous / next chapter</dd>
+      <dt><kbd>↑</kbd> <kbd>↓</kbd></dt><dd>Faster / slower by 25 wpm</dd>
+      <dt><kbd>T</kbd></dt><dd>Surrounding text</dd>
+      <dt><kbd>C</kbd></dt><dd>Chapters</dd>
+      <dt><kbd>Esc</kbd></dt><dd>Close / back to library</dd>
+      <dt><kbd>?</kbd></dt><dd>This list</dd>
+    </dl>
+  </dialog>
+
+  <dialog id="sheet-picker" class="sheet sheet--tall" aria-labelledby="picker-title">
+    <div class="sheet-headrow">
+      <h2 id="picker-title" class="sheet-title">Choose folder</h2>
+      <button class="icon-btn" type="button" data-close aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button>
+    </div>
+    <p id="picker-cwd" class="picker-cwd"></p>
+    <ul id="picker-list" class="file-list file-list--compact" role="list"></ul>
+    <div class="sheet-actions sheet-actions--split">
+      <span id="picker-selection" class="picker-selection"></span>
+      <button id="picker-confirm" class="btn btn--solid" type="button" disabled>Use this folder</button>
+    </div>
+  </dialog>
+
+  <div id="toasts" class="toasts" role="status" aria-live="polite"></div>
+
+  <script type="module" src="/static/js/main.js"></script>
 </body>
 </html>

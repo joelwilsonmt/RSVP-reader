@@ -1,0 +1,601 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-12T18:20:45+00:00",
+  "title": "Design System: RSVP Reader",
+  "extensions": {
+    "colorMeta": {
+      "void": {
+        "role": "neutral",
+        "displayName": "Void",
+        "canonical": "oklch(14.5% 0.000 90)",
+        "tonalRamp": [
+          "oklch(15% 0.000 90)",
+          "oklch(25% 0.000 90)",
+          "oklch(35% 0.000 90)",
+          "oklch(45% 0.000 90)",
+          "oklch(58% 0.000 90)",
+          "oklch(70% 0.000 90)",
+          "oklch(82% 0.000 90)",
+          "oklch(95% 0.000 90)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(18.7% 0.006 271)",
+        "tonalRamp": [
+          "oklch(15% 0.006 271)",
+          "oklch(25% 0.006 271)",
+          "oklch(35% 0.006 271)",
+          "oklch(45% 0.006 271)",
+          "oklch(58% 0.006 271)",
+          "oklch(70% 0.006 271)",
+          "oklch(82% 0.006 271)",
+          "oklch(95% 0.006 271)"
+        ]
+      },
+      "slate": {
+        "role": "neutral",
+        "displayName": "Slate",
+        "canonical": "oklch(24.4% 0.012 271)",
+        "tonalRamp": [
+          "oklch(15% 0.012 271)",
+          "oklch(25% 0.012 271)",
+          "oklch(35% 0.012 271)",
+          "oklch(45% 0.012 271)",
+          "oklch(58% 0.012 271)",
+          "oklch(70% 0.012 271)",
+          "oklch(82% 0.012 271)",
+          "oklch(95% 0.012 271)"
+        ]
+      },
+      "mist": {
+        "role": "neutral",
+        "displayName": "Mist",
+        "canonical": "oklch(30.5% 0.019 264)",
+        "tonalRamp": [
+          "oklch(15% 0.019 264)",
+          "oklch(25% 0.019 264)",
+          "oklch(35% 0.019 264)",
+          "oklch(45% 0.019 264)",
+          "oklch(58% 0.019 264)",
+          "oklch(70% 0.019 264)",
+          "oklch(82% 0.019 264)",
+          "oklch(95% 0.019 264)"
+        ]
+      },
+      "fog": {
+        "role": "neutral",
+        "displayName": "Fog",
+        "canonical": "oklch(50.0% 0.026 257)",
+        "tonalRamp": [
+          "oklch(15% 0.026 257)",
+          "oklch(25% 0.026 257)",
+          "oklch(35% 0.026 257)",
+          "oklch(45% 0.026 257)",
+          "oklch(58% 0.026 257)",
+          "oklch(70% 0.026 257)",
+          "oklch(82% 0.026 257)",
+          "oklch(95% 0.026 257)"
+        ]
+      },
+      "sand": {
+        "role": "neutral",
+        "displayName": "Sand",
+        "canonical": "oklch(79.2% 0.031 76)",
+        "tonalRamp": [
+          "oklch(15% 0.031 76)",
+          "oklch(25% 0.031 76)",
+          "oklch(35% 0.031 76)",
+          "oklch(45% 0.031 76)",
+          "oklch(58% 0.031 76)",
+          "oklch(70% 0.031 76)",
+          "oklch(82% 0.031 76)",
+          "oklch(95% 0.031 76)"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "Bone White",
+        "canonical": "oklch(96.7% 0.003 106)",
+        "tonalRamp": [
+          "oklch(15% 0.003 106)",
+          "oklch(25% 0.003 106)",
+          "oklch(35% 0.003 106)",
+          "oklch(45% 0.003 106)",
+          "oklch(58% 0.003 106)",
+          "oklch(70% 0.003 106)",
+          "oklch(82% 0.003 106)",
+          "oklch(95% 0.003 106)"
+        ]
+      },
+      "text-2": {
+        "role": "neutral",
+        "displayName": "Ash",
+        "canonical": "oklch(73.9% 0.021 260)",
+        "tonalRamp": [
+          "oklch(15% 0.021 260)",
+          "oklch(25% 0.021 260)",
+          "oklch(35% 0.021 260)",
+          "oklch(45% 0.021 260)",
+          "oklch(58% 0.021 260)",
+          "oklch(70% 0.021 260)",
+          "oklch(82% 0.021 260)",
+          "oklch(95% 0.021 260)"
+        ]
+      },
+      "text-3": {
+        "role": "neutral",
+        "displayName": "Pewter",
+        "canonical": "oklch(64.4% 0.023 259)",
+        "tonalRamp": [
+          "oklch(15% 0.023 259)",
+          "oklch(25% 0.023 259)",
+          "oklch(35% 0.023 259)",
+          "oklch(45% 0.023 259)",
+          "oklch(58% 0.023 259)",
+          "oklch(70% 0.023 259)",
+          "oklch(82% 0.023 259)",
+          "oklch(95% 0.023 259)"
+        ]
+      },
+      "signal": {
+        "role": "primary",
+        "displayName": "Signal Red",
+        "canonical": "oklch(67.8% 0.213 16)",
+        "tonalRamp": [
+          "oklch(15% 0.200 16)",
+          "oklch(25% 0.200 16)",
+          "oklch(35% 0.200 16)",
+          "oklch(45% 0.200 16)",
+          "oklch(58% 0.200 16)",
+          "oklch(70% 0.200 16)",
+          "oklch(82% 0.200 16)",
+          "oklch(95% 0.200 16)"
+        ]
+      },
+      "guide": {
+        "role": "neutral",
+        "displayName": "Guide Grey",
+        "canonical": "oklch(37.4% 0.023 261)",
+        "tonalRamp": [
+          "oklch(15% 0.023 261)",
+          "oklch(25% 0.023 261)",
+          "oklch(35% 0.023 261)",
+          "oklch(45% 0.023 261)",
+          "oklch(58% 0.023 261)",
+          "oklch(70% 0.023 261)",
+          "oklch(82% 0.023 261)",
+          "oklch(95% 0.023 261)"
+        ]
+      },
+      "on-media-2": {
+        "role": "neutral",
+        "displayName": "Media Silver",
+        "canonical": "oklch(84.5% 0.009 265)",
+        "tonalRamp": [
+          "oklch(15% 0.009 265)",
+          "oklch(25% 0.009 265)",
+          "oklch(35% 0.009 265)",
+          "oklch(45% 0.009 265)",
+          "oklch(58% 0.009 265)",
+          "oklch(70% 0.009 265)",
+          "oklch(82% 0.009 265)",
+          "oklch(95% 0.009 265)"
+        ]
+      },
+      "light-bg": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "oklch(95.9% 0.005 78)",
+        "tonalRamp": [
+          "oklch(15% 0.005 78)",
+          "oklch(25% 0.005 78)",
+          "oklch(35% 0.005 78)",
+          "oklch(45% 0.005 78)",
+          "oklch(58% 0.005 78)",
+          "oklch(70% 0.005 78)",
+          "oklch(82% 0.005 78)",
+          "oklch(95% 0.005 78)"
+        ]
+      },
+      "light-surface": {
+        "role": "neutral",
+        "displayName": "White Card",
+        "canonical": "oklch(100.0% 0.000 90)",
+        "tonalRamp": [
+          "oklch(15% 0.000 90)",
+          "oklch(25% 0.000 90)",
+          "oklch(35% 0.000 90)",
+          "oklch(45% 0.000 90)",
+          "oklch(58% 0.000 90)",
+          "oklch(70% 0.000 90)",
+          "oklch(82% 0.000 90)",
+          "oklch(95% 0.000 90)"
+        ]
+      },
+      "light-surface-2": {
+        "role": "neutral",
+        "displayName": "Linen",
+        "canonical": "oklch(92.3% 0.009 78)",
+        "tonalRamp": [
+          "oklch(15% 0.009 78)",
+          "oklch(25% 0.009 78)",
+          "oklch(35% 0.009 78)",
+          "oklch(45% 0.009 78)",
+          "oklch(58% 0.009 78)",
+          "oklch(70% 0.009 78)",
+          "oklch(82% 0.009 78)",
+          "oklch(95% 0.009 78)"
+        ]
+      },
+      "light-line": {
+        "role": "neutral",
+        "displayName": "Rule",
+        "canonical": "oklch(86.9% 0.014 78)",
+        "tonalRamp": [
+          "oklch(15% 0.014 78)",
+          "oklch(25% 0.014 78)",
+          "oklch(35% 0.014 78)",
+          "oklch(45% 0.014 78)",
+          "oklch(58% 0.014 78)",
+          "oklch(70% 0.014 78)",
+          "oklch(82% 0.014 78)",
+          "oklch(95% 0.014 78)"
+        ]
+      },
+      "light-text-2": {
+        "role": "neutral",
+        "displayName": "Graphite",
+        "canonical": "oklch(38.5% 0.022 261)",
+        "tonalRamp": [
+          "oklch(15% 0.022 261)",
+          "oklch(25% 0.022 261)",
+          "oklch(35% 0.022 261)",
+          "oklch(45% 0.022 261)",
+          "oklch(58% 0.022 261)",
+          "oklch(70% 0.022 261)",
+          "oklch(82% 0.022 261)",
+          "oklch(95% 0.022 261)"
+        ]
+      },
+      "light-signal": {
+        "role": "primary",
+        "displayName": "Signal Red (light)",
+        "canonical": "oklch(54.0% 0.200 16)",
+        "tonalRamp": [
+          "oklch(15% 0.200 16)",
+          "oklch(25% 0.200 16)",
+          "oklch(35% 0.200 16)",
+          "oklch(45% 0.200 16)",
+          "oklch(58% 0.200 16)",
+          "oklch(70% 0.200 16)",
+          "oklch(82% 0.200 16)",
+          "oklch(95% 0.200 16)"
+        ]
+      },
+      "light-guide": {
+        "role": "neutral",
+        "displayName": "Guide Sand",
+        "canonical": "oklch(80.8% 0.019 78)",
+        "tonalRamp": [
+          "oklch(15% 0.019 78)",
+          "oklch(25% 0.019 78)",
+          "oklch(35% 0.019 78)",
+          "oklch(45% 0.019 78)",
+          "oklch(58% 0.019 78)",
+          "oklch(70% 0.019 78)",
+          "oklch(82% 0.019 78)",
+          "oklch(95% 0.019 78)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Feed slide book title, uppercase, max three lines."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Page titles (Files, Pace), uppercase."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Sheet titles, reader caption title, context chapter heads; 1.5-1.75rem, uppercase."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "WPM readout; Antonio tabular numerals also for chapter numbers and feed count."
+      },
+      "word": {
+        "displayName": "Word",
+        "purpose": "The RSVP word, split around the signal pivot."
+      },
+      "reading": {
+        "displayName": "Reading",
+        "purpose": "Surrounding text in the context panel, max 65ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Operational UI text: file names, settings, captions."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase tracked button text, running chapter head, panel labels, units."
+      },
+      "glyph-count": {
+        "displayName": "Glyph count",
+        "purpose": "Labels and live counts under rail and tab icons."
+      }
+    },
+    "shadows": [
+      {
+        "name": "cover-lift",
+        "value": "0 30px 60px -20px rgb(0 0 0 / .8), 0 8px 18px rgb(0 0 0 / .35)",
+        "purpose": "Feed cover over its blurred field."
+      },
+      {
+        "name": "sheet",
+        "value": "0 -20px 50px rgb(0 0 0 / .45)",
+        "purpose": "Modal bottom sheets."
+      },
+      {
+        "name": "context-sheet",
+        "value": "0 -20px 40px rgb(0 0 0 / .35)",
+        "purpose": "Phone context-text sheet; removed when it docks as a side panel."
+      },
+      {
+        "name": "float",
+        "value": "0 6px 20px rgb(0 0 0 / .4)",
+        "purpose": "Primary play disc over cover art."
+      },
+      {
+        "name": "toast",
+        "value": "0 10px 30px rgb(0 0 0 / .35)",
+        "purpose": "Toasts."
+      },
+      {
+        "name": "glyph-lift",
+        "value": "drop-shadow(0 1px 2px rgb(0 0 0 / .45))",
+        "purpose": "Outline rail glyphs over cover art (filter)."
+      },
+      {
+        "name": "scrim",
+        "value": "linear-gradient(to top, rgb(10 10 10 / .88) 0%, rgb(10 10 10 / .55) 30%, rgb(10 10 10 / 0) 58%)",
+        "purpose": "Bottom scrim carrying text over cover art."
+      },
+      {
+        "name": "cover-field",
+        "value": "filter: blur(24px) saturate(.9) brightness(.7); transform: scale(1.1)",
+        "purpose": "Blurred cover as the slide field, with grain.svg at 8% opacity above."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(.22, 1, .36, 1)",
+        "purpose": "Single decelerating ease for all transitions."
+      },
+      {
+        "name": "t",
+        "value": "200ms",
+        "purpose": "Default state transitions and backdrop fade."
+      },
+      {
+        "name": "sheet",
+        "value": "260ms",
+        "purpose": "Sheet entry (rise 40px + fade), context sheet slide, chrome fade while playing."
+      },
+      {
+        "name": "press",
+        "value": "120ms",
+        "purpose": "Rail press scale to .92, scrub thumb grow."
+      },
+      {
+        "name": "feed-snap",
+        "value": "scroll-snap-type: y mandatory; scroll-snap-stop: always",
+        "purpose": "Hard snap, one book per flick."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation/transition durations forced to 1ms",
+        "purpose": "prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "page-actions-stack",
+        "value": "max-width: 600px"
+      },
+      {
+        "name": "sheet-centred",
+        "value": "700px"
+      },
+      {
+        "name": "slide-wide",
+        "value": "760px"
+      },
+      {
+        "name": "context-panel",
+        "value": "960px"
+      },
+      {
+        "name": "slide-three-column",
+        "value": "1100px"
+      }
+    ],
+    "layout": [
+      {
+        "name": "tab-h",
+        "value": "64px"
+      },
+      {
+        "name": "page-max",
+        "value": "760px"
+      },
+      {
+        "name": "reader-lift",
+        "value": "18dvh (12dvh at 960px+)"
+      },
+      {
+        "name": "context-sheet-height",
+        "value": "56dvh"
+      },
+      {
+        "name": "context-panel-width",
+        "value": "clamp(340px, 38vw, 560px)"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Solid Button",
+      "kind": "button",
+      "refersTo": "button-solid",
+      "description": "Inverse-filled primary action (Done, Use this folder, Browse files).",
+      "html": "<button class=\"ds-btn-solid\" type=\"button\">Done</button>",
+      "css": ".ds-btn-solid{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:3px;font:600 .75rem/1 var(--f-ui, system-ui, sans-serif);letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background 200ms var(--ease, cubic-bezier(.22,1,.36,1)),color 200ms var(--ease, cubic-bezier(.22,1,.36,1)),border-color 200ms var(--ease, cubic-bezier(.22,1,.36,1));border:0;background:var(--text, #f4f4f2);color:var(--bg, #0a0a0a);} .ds-btn-solid:hover{background:color-mix(in srgb,var(--text, #f4f4f2) 86%,var(--bg, #0a0a0a));} .ds-btn-solid:focus-visible{outline:2px solid var(--text, #f4f4f2);outline-offset:2px;} .ds-btn-solid:disabled{background:var(--surface-2, #1e2026);color:var(--text-3, #858e9c);cursor:default;}"
+    },
+    {
+      "name": "Quiet Button",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "Hairline secondary action with optional icon.",
+      "html": "<button class=\"ds-btn-quiet\" type=\"button\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3.5 7.5a2 2 0 0 1 2-2h3.6l2 2.2h7.4a2 2 0 0 1 2 2v7.8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2Z\"/></svg><span>Set folder…</span></button>",
+      "css": ".ds-btn-quiet{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:3px;font:600 .75rem/1 var(--f-ui, system-ui, sans-serif);letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background 200ms var(--ease, cubic-bezier(.22,1,.36,1)),color 200ms var(--ease, cubic-bezier(.22,1,.36,1)),border-color 200ms var(--ease, cubic-bezier(.22,1,.36,1));background:none;border:1px solid var(--line, #2a2f39);color:var(--text-2, #a3abb8);} .ds-btn-quiet:hover{color:var(--text, #f4f4f2);border-color:var(--text-3, #858e9c);} .ds-btn-quiet:focus-visible{outline:2px solid var(--text, #f4f4f2);outline-offset:2px;}"
+    },
+    {
+      "name": "Media Button",
+      "kind": "button",
+      "description": "Translucent button for use over cover art or the void feed.",
+      "html": "<div class=\"ds-media-bg\"><button class=\"ds-btn-media\" type=\"button\">Browse files</button></div>",
+      "css": ".ds-media-bg{background:#0a0a0a;padding:24px;} .ds-btn-media{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:3px;font:600 .75rem/1 var(--f-ui, system-ui, sans-serif);letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background 200ms var(--ease, cubic-bezier(.22,1,.36,1)),color 200ms var(--ease, cubic-bezier(.22,1,.36,1)),border-color 200ms var(--ease, cubic-bezier(.22,1,.36,1));background:rgb(244 244 242 / .12);color:#f4f4f2;border:1px solid rgb(244 244 242 / .28);} .ds-btn-media:hover{background:rgb(244 244 242 / .2);} .ds-btn-media:focus-visible{outline:2px solid #f4f4f2;outline-offset:2px;}"
+    },
+    {
+      "name": "Glyph Rail",
+      "kind": "custom",
+      "refersTo": "rail-button",
+      "description": "Signature lower-right control rail: outline glyphs with live counts, white play disc at the bottom.",
+      "html": "<div class=\"ds-rail-bg\"><div class=\"ds-rail\"><button class=\"ds-rail-btn\" type=\"button\"><svg width=\"30\" height=\"30\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 14l4-5\"/><path d=\"M3.5 17a9 9 0 1 1 17 0\"/></svg><span>350</span></button><button class=\"ds-rail-btn\" type=\"button\"><svg width=\"30\" height=\"30\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01\"/></svg><span>63</span></button><button class=\"ds-rail-btn ds-rail-primary\" type=\"button\" aria-label=\"Play\"><svg width=\"26\" height=\"26\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M7 4.5v15a.5.5 0 0 0 .76.43l12.2-7.5a.5.5 0 0 0 0-.86L7.76 4.07A.5.5 0 0 0 7 4.5Z\"/></svg></button></div></div>",
+      "css": ".ds-rail-bg{background:#0a0a0a;padding:24px;display:flex;justify-content:flex-end;} .ds-rail{display:flex;flex-direction:column;align-items:center;gap:14px;color:#f4f4f2;} .ds-rail-btn{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:56px;min-height:52px;background:none;border:0;color:inherit;cursor:pointer;font:600 .6875rem/1.5 system-ui,sans-serif;letter-spacing:.04em;font-variant-numeric:tabular-nums;transition:transform 120ms var(--ease, cubic-bezier(.22,1,.36,1));} .ds-rail-btn:active{transform:scale(.92);} .ds-rail-btn:focus-visible{outline:2px solid #f4f4f2;outline-offset:2px;border-radius:6px;} .ds-rail-btn[aria-pressed=true] svg{stroke-width:2.25;} .ds-rail-primary{width:60px;height:60px;min-height:0;justify-content:center;border-radius:50%;background:#f4f4f2;color:#0a0a0a;box-shadow:0 6px 20px rgb(0 0 0 / .4);} .ds-rail-primary svg{margin-left:3px;}"
+    },
+    {
+      "name": "Tab Bar",
+      "kind": "nav",
+      "refersTo": "tab",
+      "description": "Bottom navigation: Now, Files, Pace.",
+      "html": "<nav class=\"ds-tabbar\"><a class=\"ds-tab\" href=\"#\" aria-current=\"page\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"5\" y=\"3.5\" width=\"14\" height=\"17\" rx=\"2\"/><path d=\"M10 9.5v5l4-2.5Z\"/></svg><span>Now</span></a><a class=\"ds-tab\" href=\"#\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 5.5h5l2 2h9v11H4Z\"/><path d=\"M4 10.5h16\"/></svg><span>Files</span></a><a class=\"ds-tab\" href=\"#\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 20V12M10 20V6M15 20v-9M20 20V4\"/></svg><span>Pace</span></a></nav>",
+      "css": ".ds-tabbar{display:flex;justify-content:center;gap:8px;height:64px;background:#0a0a0a;border-top:1px solid #1b1d22;} .ds-tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:88px;color:#858e9c;text-decoration:none;font:600 .6875rem/1.5 system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;transition:color 200ms var(--ease, cubic-bezier(.22,1,.36,1));} .ds-tab:hover{color:#f4f4f2;} .ds-tab:focus-visible{outline:2px solid #f4f4f2;outline-offset:2px;border-radius:6px;} .ds-tab[aria-current=page]{color:#f4f4f2;} .ds-tab[aria-current=page] svg{stroke-width:2;}"
+    },
+    {
+      "name": "File Row",
+      "kind": "card",
+      "refersTo": "file-row",
+      "description": "List row for folders, books and chapters with hairline separators.",
+      "html": "<ul class=\"ds-list\"><li><button class=\"ds-row\" type=\"button\"><span class=\"ds-thumb\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3.5 7.5a2 2 0 0 1 2-2h3.6l2 2.2h7.4a2 2 0 0 1 2 2v7.8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2Z\"/></svg></span><span class=\"ds-main\"><span class=\"ds-name\">Non-fiction</span><span class=\"ds-sub\">14 books</span></span><span class=\"ds-end\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 5l7 7-7 7\"/></svg></span></button></li><li><button class=\"ds-row\" type=\"button\"><span class=\"ds-thumb ds-thumb--book\"></span><span class=\"ds-main\"><span class=\"ds-name\">Pride and Prejudice</span><span class=\"ds-sub\"><b>31%</b> · 5h 4m left</span></span><span class=\"ds-end\">EPUB</span></button></li></ul>",
+      "css": ".ds-list{list-style:none;margin:0;padding:0;} .ds-row{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:14px;width:100%;min-height:64px;padding:8px;border:0;border-radius:10px;background:none;color:var(--text, #f4f4f2);text-align:left;font:400 1rem/1.5 system-ui,sans-serif;cursor:pointer;transition:background 200ms var(--ease, cubic-bezier(.22,1,.36,1));} .ds-list li+li .ds-row{box-shadow:inset 0 1px 0 var(--line, #2a2f39);} .ds-row:hover{background:var(--surface-2, #1e2026);box-shadow:none;} .ds-row:focus-visible{outline:2px solid var(--text, #f4f4f2);outline-offset:2px;} .ds-thumb{width:44px;height:44px;display:grid;place-items:center;color:var(--text-2, #a3abb8);} .ds-thumb--book{height:60px;border-radius:3px;background:var(--surface-2, #1e2026);} .ds-main{min-width:0;} .ds-name{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;} .ds-sub{display:block;font-size:.8125rem;color:var(--text-3, #858e9c);font-variant-numeric:tabular-nums;} .ds-sub b{color:var(--text, #f4f4f2);font-weight:400;} .ds-end{display:flex;align-items:center;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3, #858e9c);}"
+    },
+    {
+      "name": "Segmented Control",
+      "kind": "input",
+      "refersTo": "segmented",
+      "description": "Radio group for theme choice inside sheets.",
+      "html": "<div class=\"ds-seg\" role=\"radiogroup\"><button type=\"button\" role=\"radio\" aria-checked=\"true\">Auto</button><button type=\"button\" role=\"radio\" aria-checked=\"false\">Dark</button><button type=\"button\" role=\"radio\" aria-checked=\"false\">Light</button></div>",
+      "css": ".ds-seg{display:inline-flex;padding:3px;border-radius:10px;background:var(--surface-2, #1e2026);} .ds-seg button{min-height:38px;padding:0 14px;border:0;border-radius:7px;background:none;font:600 .875rem/1 system-ui,sans-serif;color:var(--text-3, #858e9c);cursor:pointer;} .ds-seg button:hover{color:var(--text, #f4f4f2);} .ds-seg button:focus-visible{outline:2px solid var(--text, #f4f4f2);outline-offset:2px;} .ds-seg button[aria-checked=true]{background:var(--bg, #0a0a0a);color:var(--text, #f4f4f2);box-shadow:0 1px 3px rgb(0 0 0 / .25);}"
+    },
+    {
+      "name": "Switch",
+      "kind": "input",
+      "description": "Pill toggle for reader settings.",
+      "html": "<input class=\"ds-switch\" type=\"checkbox\" checked aria-label=\"Fixation guides\">",
+      "css": ".ds-switch{appearance:none;-webkit-appearance:none;width:48px;height:28px;border-radius:28px;background:var(--line, #2a2f39);position:relative;cursor:pointer;transition:background 200ms var(--ease, cubic-bezier(.22,1,.36,1));} .ds-switch::after{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:var(--text-2, #a3abb8);transition:transform 200ms var(--ease, cubic-bezier(.22,1,.36,1)),background 200ms;} .ds-switch:checked{background:var(--text, #f4f4f2);} .ds-switch:checked::after{transform:translateX(20px);background:var(--bg, #0a0a0a);} .ds-switch:focus-visible{outline:2px solid var(--text, #f4f4f2);outline-offset:2px;}"
+    },
+    {
+      "name": "RSVP Word",
+      "kind": "custom",
+      "description": "Signature reader stage: pivot-aligned word between fixation guides.",
+      "html": "<div class=\"ds-stage\"><span class=\"ds-guide ds-guide--top\"></span><div class=\"ds-word\"><span class=\"ds-l\">t</span><span class=\"ds-p\">h</span><span class=\"ds-r\">e</span></div><span class=\"ds-guide ds-guide--bottom\"></span></div>",
+      "css": ".ds-stage{background:var(--bg, #0a0a0a);padding:32px 0;display:grid;justify-items:center;gap:20px;} .ds-guide{width:min(70%,560px);height:1px;background:var(--guide, #3a414d);position:relative;} .ds-guide::after{content:'';position:absolute;left:50%;width:1px;height:12px;background:var(--guide, #3a414d);transform:translateX(-50%);} .ds-guide--top::after{top:0;} .ds-guide--bottom::after{bottom:0;} .ds-word{display:flex;align-items:baseline;width:min(92%,820px);font:400 4rem/1.15 var(--f-word, \"Atkinson Hyperlegible\", system-ui, sans-serif);white-space:pre;color:var(--text, #f4f4f2);} .ds-l{flex:1 1 0;text-align:right;} .ds-r{flex:1 1 0;text-align:left;} .ds-p{color:var(--signal, #ff4d6a);}"
+    },
+    {
+      "name": "Toast",
+      "kind": "custom",
+      "refersTo": "toast",
+      "description": "Inverse status message at the top edge.",
+      "html": "<div class=\"ds-toast\" role=\"status\">Removed from Now</div>",
+      "css": ".ds-toast{display:inline-block;max-width:480px;padding:12px 16px;border-radius:10px;background:var(--text, #f4f4f2);color:var(--bg, #0a0a0a);font:400 .9375rem/1.5 system-ui,sans-serif;box-shadow:0 10px 30px rgb(0 0 0 / .35);}"
+    }
+  ],
+  "narrative": {
+    "northStar": "One Thing Owns the Screen",
+    "overview": "A night-reading instrument. Every view hands the whole viewport to a single subject: on the Now feed it is one book, its cover blown up and blurred into the field behind it; in the reader it is one word, alone on the void. Interface chrome is white glyphs and quiet grey type that recede until summoned, and during playback they disappear entirely.\n\nThe palette is a cool near-black ladder with one hot accent. Colour in the content comes from the books themselves (cover art, per-book tone fields); colour in the interface is white, a few greys, and a single signal red that marks the pivot letter and the live position. Tall condensed caps carry titles and counts; a hyperlegible humanist sans carries the word and the surrounding text; system sans carries everything operational.\n\nDensity is low and thumb-led. Controls sit in a vertical rail at the lower right, the caption block sits lower left, and the top edge holds only orientation (wordmark and count, or back and the running chapter head). Motion is short and decelerating; nothing moves while words are playing.",
+    "keyCharacteristics": [
+      "Full-bleed single subject per viewport: snap feed of books, word on the void.",
+      "Dark is the default; light theme recolours the pages and reader, but the Now feed stays night.",
+      "White-on-dark glyph rail in the thumb zone, 1.5px outline icons, labels and counts beneath.",
+      "Antonio condensed caps for titles and numerals, Atkinson Hyperlegible for reading, system sans for UI.",
+      "One accent, signal red, spent only on the pivot letter and current-position marks."
+    ],
+    "rules": [
+      {
+        "name": "The White Glyph Rule",
+        "body": "Interface colour is white (or its light-mode inversion, void) and grey. Hue in a surface comes from book covers and per-book tone fields, never from chrome.",
+        "section": "colors"
+      },
+      {
+        "name": "The Signal Is a Location Rule",
+        "body": "Signal red marks where the reader is (pivot letter, current chapter). If it is not a position, it is not red.",
+        "section": "colors"
+      },
+      {
+        "name": "The Feed Is Always Night Rule",
+        "body": "The Now feed, its overlay top bar, and the tab bar on that route stay on void with media-white text regardless of theme; cover art needs a dark field and a scrim to read.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tall Caps Rule",
+        "body": "Antonio is always 600, always uppercase for words, always tight (0.9-1 line height). Numerals in Antonio use tabular figures.",
+        "section": "typography"
+      },
+      {
+        "name": "The Word Is Atkinson Rule",
+        "body": "Anything the user reads as text of the book (the RSVP word, context paragraphs) is Atkinson Hyperlegible; nothing operational is.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Pace Rule",
+        "body": "Every changing number (percent, time left, WPM, counts) uses tabular figures so it does not jitter.",
+        "section": "typography"
+      },
+      {
+        "name": "The Thumb Zone Rule",
+        "body": "Primary actions live in the lower-right rail; the top edge is for orientation only.",
+        "section": "layout"
+      },
+      {
+        "name": "The Float Only Over Content Rule",
+        "body": "A shadow means the element is above other content. Elements in the reader, on the void, carry no shadow.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do give each viewport one subject: one book per feed slide, one word in the reader.",
+      "Do keep interface glyphs white (dark) or void (light), with Ash and Pewter for secondary and tertiary text.",
+      "Do reserve signal red for position: the pivot letter, the current chapter, the selection tint.",
+      "Do put primary actions in the lower-right rail with labels or live counts under 1.5px outline glyphs.",
+      "Do set titles and numerals in Antonio 600 uppercase at 0.9-1 line height, and any book text in Atkinson Hyperlegible.",
+      "Do use tabular figures for every changing number.",
+      "Do carry text over cover art with the blurred field, bottom scrim and grain, using media white and Media Silver.",
+      "Do keep transitions at 200ms (260ms for sheets and chrome fades) on the decelerating ease, and stop all motion during playback.",
+      "Do keep touch targets at 44px or larger."
+    ],
+    "donts": [
+      "Don't add hue to chrome; colour comes from covers and tone fields.",
+      "Don't use signal red for buttons, links, decoration or emphasis that is not a position.",
+      "Don't add a bottom toolbar to the reader or move primary controls to the top edge.",
+      "Don't put shadows on elements that sit on the void in the reader.",
+      "Don't switch the Now feed to the light theme.",
+      "Don't animate anything while words are playing."
+    ]
+  }
+}

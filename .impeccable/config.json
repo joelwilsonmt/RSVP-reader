@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font",
+        "value": "sf mono",
+        "createdAt": "2026-10-12T18:21:34.072Z",
+        "reason": "agent decided: system mono stack is used only for <code>/<kbd> in the shortcuts sheet and the wake-lock note, which is literal code and keys, not a design face"
+      }
+    ]
+  }
+}

@@ -16,3 +16,14 @@ data/config.json
 .idea/
 .vscode/
 *.swp
+data/covers/
+data/progress.db-*
+
+# Design-tool scratch (review captures, mocks, browser automation logs)
+.impeccable/review/
+.impeccable/mocks/
+.impeccable/build/
+.playwright-mcp/
+
+# Impeccable question logs
+.impeccable/questions/
