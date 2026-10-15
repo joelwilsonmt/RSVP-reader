@@ -27,7 +27,7 @@ PORT = int(os.environ.get("PORT", 5002))
 CACHE_DIR = DATA_DIR / "text_cache"
 COVERS_DIR = DATA_DIR / "covers"
 
-CACHE_VERSION = 5
+CACHE_VERSION = 6
 SUPPORTED_EXTS = {".epub", ".pdf", ".txt", ".md", ".mobi", ".azw", ".azw3"}
 MOBI_EXTS = {".mobi", ".azw", ".azw3"}
 COVER_EXTS = (".jpg", ".jpeg", ".png", ".gif", ".webp")  # ordered: find_cover search order
@@ -835,7 +835,7 @@ def extract_doc(path: Path) -> dict:
 
 # ── tokenizer ─────────────────────────────────────────────────────────────────
 
-JOINER_RE = re.compile(r"(?<=\w)(--+|[—–]+|\.{3}|…)(?=[\w\"'“‘])")
+JOINER_RE = re.compile(r"(?<=[\w,;:!?\"'”’)])(--+|[—–]+|\.{3}|…)(?=[\w\"'“‘])")
 
 
 def tokenize_block(block: str) -> list[str]:

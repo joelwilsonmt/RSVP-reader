@@ -310,12 +310,47 @@ function setWord(word) {
   if (word === BREAK) {
     wl.textContent = ""; wp.textContent = "·"; wr.textContent = "";
     wordEl.classList.add("is-break");
+    setFit(1);
     return;
   }
   wordEl.classList.remove("is-break");
   const { left, pivot, right } = orp(word || "");
   wl.textContent = left; wp.textContent = pivot; wr.textContent = right;
+  setFit(fitFor(left, pivot, right));
 }
+
+// Each side of the pivot gets half the line and clips what overflows, so a word too
+// long for its half is shrunk (pivot stays put) instead of losing its end.
+const measureCtx = document.createElement("canvas").getContext("2d");
+let fitBase = null;  // { font, half } at full size; reset when the layout or fonts change
+let fit = 1;
+
+function fitFor(left, pivot, right) {
+  if (!fitBase) {
+    const cs = getComputedStyle(wordEl);
+    const px = parseFloat(cs.fontSize) / fit;
+    fitBase = { font: `${cs.fontWeight} ${px}px ${cs.fontFamily}`, half: wordEl.clientWidth / 2 };
+  }
+  if (!fitBase.half) return 1;
+  measureCtx.font = fitBase.font;
+  const m = (t) => measureCtx.measureText(t).width;
+  const p = m(pivot) / 2;
+  const need = (Math.max(m(left), m(right)) + p) / (fitBase.half - 2);
+  return need > 1 ? Math.max(0.4, 1 / need) : 1;
+}
+
+function setFit(f) {
+  if (f === fit) return;
+  fit = f;
+  wordEl.style.setProperty("--fit", f.toFixed(3));
+}
+
+function refit() {
+  fitBase = null;
+  if (r.book) setWord(r.book.words[r.idx]);
+}
+new ResizeObserver(refit).observe(wordEl);  // window resize, rotation, side panel opening
+document.fonts?.addEventListener("loadingdone", refit);
 
 function setStatus(msg, loading = false) {
   const s = $("stage-status");

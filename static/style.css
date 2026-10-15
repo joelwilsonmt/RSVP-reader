@@ -389,8 +389,8 @@ body[data-route="now"] .tab[aria-current="page"] { color: var(--on-media); }
   display: flex; align-items: baseline;
   width: min(92vw, 820px);
   font-family: var(--f-word);
-  font-size: clamp(2.4rem, 10.5vw, 4.75rem);
-  line-height: 1.15;
+  font-size: calc(clamp(2.4rem, 10.5vw, 4.75rem) * var(--fit, 1));  /* --fit: long words, see reader.js */
+  line-height: calc(clamp(2.4rem, 10.5vw, 4.75rem) * 1.15);  /* fixed, so a shrunk word keeps its line */
   white-space: pre;
   color: var(--text);
 }

@@ -94,6 +94,13 @@ def test_tokenizer_splits_dashes_and_ellipses(env):
     assert tok("dash--here") == ["dash--", "here"]
 
 
+def test_tokenizer_splits_dashes_after_punctuation(env):
+    tok = env["mod"].tokenize
+    assert tok("contemptuously,—“yes, said she") == ["contemptuously,—", "“yes,", "said", "she"]
+    assert tok("PRESS:—CHARLES WHITTINGHAM") == ["PRESS:—", "CHARLES", "WHITTINGHAM"]
+    assert tok("well?—no") == ["well?—", "no"]
+
+
 def test_tokenizer_attaches_punctuation_and_paragraphs(env):
     tok = env["mod"].tokenize
     assert tok("Hello , world — again") == ["Hello,", "world—", "again"]
