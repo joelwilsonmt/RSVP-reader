@@ -13,6 +13,7 @@ Runs as a single Docker container. No accounts, no cloud, no telemetry. Built ph
 <p>
   <img src="docs/screenshots/files.png" width="24%" alt="Files: library folder with covers, authors and progress">
   <img src="docs/screenshots/pace.png" width="24%" alt="Pace: words and reading time this week and over 14 days">
+  <img src="docs/screenshots/settings.png" width="24%" alt="Reader settings: theme, word size, fixation guides and ease-in">
 </p>
 
 ![Desktop reader with the surrounding text beside the word](docs/screenshots/desktop-reader.png)
