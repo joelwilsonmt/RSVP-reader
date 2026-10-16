@@ -6,6 +6,10 @@
   <meta name="theme-color" content="#0a0a0a">
   <meta name="color-scheme" content="dark light">
   <title>RSVP Reader</title>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="/static/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/static/icons/apple-touch-icon.png">
+  <meta name="mobile-web-app-capable" content="yes">
   <link rel="preload" href="/static/fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/static/fonts/antonio-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/static/style.css">
@@ -189,8 +193,9 @@
     <div class="setting setting--stack">
       <button id="btn-restart" class="btn btn--quiet" type="button"><svg class="icon"><use href="#i-restart"/></svg><span>Start book over</span></button>
       <button id="btn-shortcuts" class="btn btn--quiet only-fine" type="button"><svg class="icon"><use href="#i-keyboard"/></svg><span>Keyboard shortcuts</span></button>
+      <button id="btn-install" class="btn btn--quiet" type="button" hidden><svg class="icon"><use href="#i-open"/></svg><span>Install app</span></button>
     </div>
-    <p id="wakelock-note" class="setting-help" hidden>Screen may sleep while reading: keeping it awake needs HTTPS (try <code>tailscale serve</code>).</p>
+    <p id="wakelock-note" class="setting-help" hidden>Screen may sleep while reading, and the app can’t be installed: both need HTTPS (try <code>tailscale serve</code>).</p>
   </dialog>
 
   <dialog id="sheet-shortcuts" class="sheet" aria-labelledby="sheet-keys-title">

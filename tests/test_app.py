@@ -563,3 +563,28 @@ def test_wpm_saved_under_old_range_is_clamped(env):
     assert env["client"].get("/api/settings").get_json()["wpm"] == 800
     mod.write_config({"settings": {"wpm": "fast"}})
     assert env["client"].get("/api/settings").get_json()["wpm"] == 350
+
+
+# ── PWA ───────────────────────────────────────────────────────────────────────
+
+def test_manifest_served_from_root(env):
+    r = env["client"].get("/manifest.webmanifest")
+    assert r.status_code == 200
+    assert r.mimetype == "application/manifest+json"
+    m = json.loads(r.data)
+    assert m["display"] == "standalone" and m["start_url"].startswith("/")
+    sizes = {i["sizes"] for i in m["icons"]}
+    assert {"192x192", "512x512"} <= sizes
+    for icon in m["icons"]:
+        assert (ROOT / icon["src"].lstrip("/")).is_file()
+
+
+def test_service_worker_served_from_root_uncached(env):
+    r = env["client"].get("/sw.js")
+    assert r.status_code == 200
+    assert r.mimetype == "text/javascript"
+    assert r.headers["Cache-Control"] == "no-cache"
+
+
+def test_index_links_manifest(env):
+    assert b'rel="manifest"' in env["client"].get("/").data

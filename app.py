@@ -1047,6 +1047,20 @@ def index():
     return render_template("index.html")
 
 
+# Served from the root so the service worker's scope covers the whole app.
+@app.route("/sw.js")
+def service_worker():
+    resp = send_file(Path(app.static_folder) / "sw.js", mimetype="text/javascript", max_age=0)
+    resp.headers["Cache-Control"] = "no-cache"
+    return resp
+
+
+@app.route("/manifest.webmanifest")
+def manifest():
+    return send_file(Path(app.static_folder) / "manifest.webmanifest",
+                     mimetype="application/manifest+json", max_age=3600)
+
+
 @app.route("/api/config", methods=["GET"])
 def get_config():
     return jsonify({"books_dir": str(get_books_dir()), "fs_root": str(FS_ROOT)})
