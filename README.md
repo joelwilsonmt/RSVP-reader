@@ -33,6 +33,7 @@ Runs as a single Docker container. No accounts, no cloud, no telemetry. Built ph
 - **Cross-device progress**: saved on your server whenever you pause, jump or leave, and keyed by file content, so renaming or moving a book keeps your place. Coming back to a book you read further on another device picks up there
 - **Pace**: words and reading time this week, and the last 14 days. Only words you actually read count; jumping or scrubbing ahead doesn't
 - **Phone-first controls**: tap anywhere to play or pause, swipe left or right for sentences, swipe up for the text, thumb-reach controls, screen kept awake while reading (needs HTTPS, see below). Works in landscape too
+- **Installable on Android**: add it to your home screen as a full-screen app, with a long-press shortcut straight back into your current book (needs HTTPS, see below)
 - **Book metadata**: title, author and cover from EPUB (and MOBI/AZW files that convert to EPUB; older MOBI files show the file name); clean-up for PDFs (de-hyphenation, header/footer and page-number removal)
 - **Dark and light themes**: follows your system or a per-device choice
 - Supports `.epub`, `.mobi`, `.azw`, `.azw3`, `.pdf`, `.txt`, `.md`
@@ -139,6 +140,14 @@ Browsers only allow the Screen Wake Lock over HTTPS. If you reach the reader ove
 tailscale serve --bg 5002
 # then open https://<server-hostname>.<tailnet>.ts.net
 ```
+
+### Installing on Android
+
+Over HTTPS (see above), Chrome on Android offers to install the reader as an app: tap **Install app** in the reader's Settings sheet, or use Chrome's menu → **Add to Home screen** → **Install**. It opens full screen from its own icon, without the browser bar. Long-press the icon for shortcuts: **Continue reading** (reopens your most recent book), **Files** and **Pace**.
+
+Over plain `http://` Chrome can only add a bookmark-style shortcut, not install the app. Books and progress always come from the server; the installed app caches only its own shell so it can still open if the server blips.
+
+Icons are rendered from `tools/icon.html`; run `tools/make-icons.sh` (needs Google Chrome) after changing it.
 
 ### Security
 

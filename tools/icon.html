@@ -1,0 +1,25 @@
+<!doctype html>
+<!-- App icon source. Render with tools/make-icons.sh. ?mask=1 draws the maskable variant
+     (content inside the 80% safe circle); ?size=N sets the pixel size. -->
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: "Atkinson Hyperlegible"; src: url("../static/fonts/atkinson-hyperlegible-latin-400-normal.woff2") format("woff2"); }
+  html, body { margin: 0; background: #0a0a0a; }
+  svg { display: block; }
+</style>
+<svg id="s" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" fill="#0a0a0a"/>
+  <g id="g">
+    <!-- fixation guides with centre ticks, framing the pivot letter -->
+    <path d="M18 27H82M50 27v6M18 73H82M50 73v-6" stroke="#3a414d" stroke-width="2.4" fill="none"/>
+    <text x="50" y="50" text-anchor="middle" dominant-baseline="central"
+          font-family="Atkinson Hyperlegible" font-size="44" fill="#ff4d6a">R</text>
+  </g>
+</svg>
+<script>
+  const q = new URLSearchParams(location.search);
+  const size = +q.get("size") || 512;
+  const s = document.getElementById("s");
+  s.setAttribute("width", size); s.setAttribute("height", size);
+  if (q.get("mask")) document.getElementById("g").setAttribute("transform", "translate(50 50) scale(.78) translate(-50 -50)");
+</script>

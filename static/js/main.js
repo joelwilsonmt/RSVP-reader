@@ -1,6 +1,7 @@
 // App shell: routing, global keys, settings sheet.
 
 import { $, setRangeFill } from "./util.js";
+import { api } from "./api.js";
 import { initSheets, openSheet, closeSheet, anySheetOpen } from "./ui.js";
 import { settings, loadSettings, saveSettings, getTheme, applyTheme, getWordSize, applyWordSize } from "./settings.js";
 import { renderFeed, renderFiles, feedKey, initLibrary } from "./library.js";
@@ -36,11 +37,19 @@ function onRoute() {
     reader.openBook(params.get("p"), { chapters: params.get("ch") === "1" });
     return;
   }
+  if (name === "resume") { resumeLatest(); return; }
   if (name === "files") { route = "files"; show("files"); renderFiles(params.get("path") || ""); window.scrollTo(0, 0); return; }
   if (name === "stats") { route = "stats"; show("stats"); renderStats(); window.scrollTo(0, 0); return; }
   route = "now";
   show("now");
   renderFeed();
+}
+
+// Home-screen shortcut target: reopen the most recently read book.
+async function resumeLatest() {
+  let latest = null;
+  try { [latest] = await api.progress(); } catch {}
+  location.replace(latest ? "#/read?" + new URLSearchParams({ p: latest.path }) : "#/now");
 }
 
 function backFromReader() {
@@ -114,6 +123,29 @@ function initSettingsSheet() {
   $("btn-shortcuts").addEventListener("click", () => { closeSheet("sheet-settings"); openSheet("sheet-shortcuts"); });
 }
 
+// ── install (PWA) ───────────────────────────────────────────────────────────
+
+let installPrompt = null;
+
+function initInstall() {
+  if ("serviceWorker" in navigator && window.isSecureContext) {
+    navigator.serviceWorker.register("/sw.js").catch(() => {});
+  }
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    installPrompt = e;
+    $("btn-install").hidden = false;
+  });
+  window.addEventListener("appinstalled", () => { installPrompt = null; $("btn-install").hidden = true; });
+  $("btn-install").addEventListener("click", async () => {
+    if (!installPrompt) return;
+    installPrompt.prompt();
+    await installPrompt.userChoice;
+    installPrompt = null;
+    $("btn-install").hidden = true;
+  });
+}
+
 // ── lifecycle ───────────────────────────────────────────────────────────────
 
 document.addEventListener("visibilitychange", () => {
@@ -128,6 +160,7 @@ async function boot() {
   initSheets();
   initLibrary();
   initSettingsSheet();
+  initInstall();
   reader.initReader({ onBack: backFromReader });
   await loadSettings();
   reader.syncGuides();
